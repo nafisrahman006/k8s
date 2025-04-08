@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ourcoolwebappdeployment
+
+  labels:
+    app: flask
+
+spec:
+  replicas: 4
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+      annotations: {}
+    spec:
+      
+      containers: 
+      - name: ourcoolwebapp
+        image: nfsr/mern-fullstack:api-server-v1
+        env:
+        - name: Flask_ENV
+          value: production
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi

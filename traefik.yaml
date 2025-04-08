@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefikbluedeployment
+
+  labels:
+    app: traefik
+    env: blue
+spec:
+  replicas: 4
+  strategy:
+    type: Recreate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
+    # type: RollingUpdate
+  selector:
+    matchLabels:
+      app: traefik
+      env: blue
+  template:
+    metadata:
+      labels: 
+        app: traefik
+        env: blue
+      annotations: {}
+    spec:
+      
+      containers: 
+      - name: traefik
+        image: traefik:v3.3.4
+        env:
+        - name: traefik_ENV
+          value: production
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefikgreeneployment
+
+  labels:
+    app: traefik
+    env: green
+spec:
+  replicas: 4
+  strategy:
+    type: Recreate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
+    # type: RollingUpdate
+  selector:
+    matchLabels:
+      app: traefik
+      env: green
+  template:
+    metadata:
+      labels: 
+        app: traefik
+        env: green
+      annotations: {}
+    spec:
+      
+      containers: 
+      - name: traefik
+        image: traefik:v3.3.4
+        env:
+        - name: traefik_ENV
+          value: production
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
