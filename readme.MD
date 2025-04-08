@@ -26,7 +26,7 @@ Here’s how you can manage it:
 
 Test Green Deployment: Ensure the Green environment (new version) is running correctly and has been thoroughly tested.
 
-Switch Traffic: Once you're ready to switch from `Blue` to `Green` .
+Switch Traffic: Once you're ready to switch from `Blue` to `Green` using `kubectl scale deploy/traefikbluedeployment --replicas=0` command
 
 
 ![scalingdown](screenshot/scaledown.png)
